@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gaurav Yadav | Cybersecurity Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#020c05;--bg2:#030f07;--panel:#071a0d;--green:#00ff41;--green2:#00c932;
+    --green-dim:#00ff4133;--green-faint:#00ff410d;--red:#ff2a2a;--amber:#ffb700;
+    --text:#c8ffd4;--text-dim:#5a8a62;--border:#1a3d22;
+    --mono:'Share Tech Mono',monospace;--display:'Orbitron',sans-serif;--body:'Rajdhani',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:none}
+  .cursor{position:fixed;width:16px;height:16px;border:2px solid var(--green);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .1s;mix-blend-mode:screen}
+  .cursor-dot{position:fixed;width:4px;height:4px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:screen}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:1000}
+  #mc{position:fixed;top:0;left:0;width:100%;height:100%;opacity:.04;z-index:0;pointer-events:none}
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(2,12,5,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .nav-logo{font-family:var(--display);font-size:13px;font-weight:700;color:var(--green);letter-spacing:3px;text-transform:uppercase}
+  .nav-logo span{color:var(--text-dim)}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-decoration:none;letter-spacing:1px;transition:color .2s}
+  .nav-links a:hover{color:var(--green)}
+  section{position:relative;z-index:1}
+  /* HERO */
+  #hero{min-height:100vh;display:flex;align-items:center;padding:120px 80px 80px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;width:100%}
+  .hero-tag{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:4px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .hero-tag::before{content:'';display:inline-block;width:30px;height:1px;background:var(--green)}
+  .hero-name{font-family:var(--display);font-size:clamp(36px,5vw,60px);font-weight:900;line-height:1.05;letter-spacing:-1px;color:#fff;margin-bottom:8px}
+  .hero-title{font-family:var(--display);font-size:clamp(11px,1.4vw,15px);font-weight:400;color:var(--text-dim);letter-spacing:4px;margin-bottom:28px;text-transform:uppercase}
+  .hero-desc{font-size:17px;line-height:1.7;color:var(--text);opacity:.8;max-width:480px;margin-bottom:40px;font-weight:300}
+  .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:13px;padding:12px 28px;border:1px solid var(--green);color:var(--green);background:transparent;cursor:pointer;text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:all .25s;position:relative;overflow:hidden;display:inline-block}
+  .btn::before{content:'';position:absolute;inset:0;background:var(--green);transform:translateX(-100%);transition:transform .25s;z-index:-1}
+  .btn:hover{color:#000}.btn:hover::before{transform:translateX(0)}
+  .btn-ghost{border-color:var(--border);color:var(--text-dim)}.btn-ghost:hover{color:var(--green);border-color:var(--green)}.btn-ghost::before{background:var(--green-faint)}
+  .btn-sm{font-size:11px;padding:8px 18px}
+  .btn-amber{border-color:var(--amber);color:var(--amber)}.btn-amber::before{background:var(--amber)}.btn-amber:hover{color:#000}
+  .status-row{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .status-badge{font-family:var(--mono);font-size:11px;padding:5px 12px;border:1px solid var(--border);color:var(--text-dim);display:flex;align-items:center;gap:6px;letter-spacing:1px}
+  .status-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pdot 2s infinite}
+  @keyframes pdot{0%,100%{opacity:1}50%{opacity:.3}}
+  /* Terminal */
+  .terminal{background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden;box-shadow:0 0 60px rgba(0,255,65,.08)}
+  .tbar{background:#0a1f10;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  .tdot{width:10px;height:10px;border-radius:50%}.tdot.r{background:#ff5f56}.tdot.y{background:#ffbd2e}.tdot.g{background:#27c93f}
+  .ttitle{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin:0 auto;letter-spacing:1px}
+  .tbody{padding:24px;font-family:var(--mono);font-size:13px;line-height:1.9}
+  .tl{display:flex;gap:10px}.tp{color:var(--green);flex-shrink:0}.tc{color:var(--text)}.to{color:var(--text-dim);padding-left:16px}
+  .to .v{color:var(--green)}.to .s{color:var(--amber)}
+  .tcursor{display:inline-block;width:8px;height:14px;background:var(--green);animation:blink 1s step-end infinite;vertical-align:middle;margin-left:2px}
+  @keyframes blink{50%{opacity:0}}
+  /* Section headers */
+  .sh{margin-bottom:60px;text-align:center}
+  .se{font-family:var(--mono);font-size:11px;letter-spacing:5px;color:var(--green);text-transform:uppercase;margin-bottom:12px}
+  .st{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;letter-spacing:-1px}
+  .sl{width:60px;height:2px;background:var(--green);margin:16px auto 0}
+  /* ABOUT */
+  #about{padding:120px 80px;max-width:1200px;margin:0 auto}
+  .ag{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .at p{font-size:16px;line-height:1.8;color:var(--text);opacity:.8;margin-bottom:16px;font-weight:300}
+  .at p strong{color:var(--green);font-weight:600}
+  .sg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .sc{background:var(--panel);border:1px solid var(--border);padding:24px;position:relative;overflow:hidden;transition:border-color .3s}
+  .sc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green);opacity:0;transition:opacity .3s}
+  .sc:hover{border-color:var(--green2)}.sc:hover::before{opacity:1}
+  .sn{font-family:var(--display);font-size:36px;font-weight:900;color:var(--green);line-height:1;margin-bottom:8px}
+  .slb{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase}
+  /* SKILLS */
+  #skills{padding:120px 80px;background:linear-gradient(180deg,transparent,var(--bg2),transparent)}
+  .sw{max-width:1200px;margin:0 auto}
+  .skg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .skc{background:var(--panel);border:1px solid var(--border);padding:28px;transition:all .3s}
+  .skc:hover{border-color:var(--green2);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,255,65,.05)}
+  .skct{font-family:var(--display);font-size:11px;font-weight:700;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .skct::after{content:'';flex:1;height:1px;background:var(--border)}
+  .skt{display:flex;flex-wrap:wrap;gap:8px}
+  .sktg{font-family:var(--mono);font-size:12px;padding:5px 12px;border:1px solid var(--border);color:var(--text-dim);transition:all .2s;cursor:default}
+  .sktg:hover{border-color:var(--green);color:var(--green);background:var(--green-faint)}
+  /* PROJECTS */
+  #projects{padding:120px 80px;max-width:1200px;margin:0 auto}
+  .pg{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .pc{background:var(--panel);border:1px solid var(--border);padding:36px;position:relative;overflow:hidden;transition:all .35s}
+  .pc.feat{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .pc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,var(--green-faint),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+  .pc:hover{border-color:var(--green2);transform:translateY(-4px)}.pc:hover::after{opacity:1}
+  .pid{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;margin-bottom:12px}
+  .pname{font-family:var(--display);font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}
+  .psub{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:2px;margin-bottom:20px}
+  .pdesc{font-size:15px;line-height:1.7;color:var(--text);opacity:.7;margin-bottom:20px;font-weight:300}
+  .pmets{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+  .met{text-align:center;padding:12px 16px;border:1px solid var(--border);background:var(--bg)}
+  .metv{font-family:var(--display);font-size:20px;font-weight:700;color:var(--green)}
+  .metk{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:1px;margin-top:4px}
+  .ptech{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .ptag{font-family:var(--mono);font-size:11px;padding:3px 10px;background:var(--green-faint);color:var(--green);border:1px solid var(--green-dim)}
+  .pacts{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .plink{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-decoration:none;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:color .2s}
+  .plink:hover{color:var(--green)}
+  .pfeats{list-style:none}
+  .pfeats li{font-size:14px;color:var(--text);opacity:.75;padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;font-weight:300;line-height:1.5}
+  .pfeats li::before{content:'▶';color:var(--green);font-size:8px;flex-shrink:0;margin-top:5px}
+  /* PROJECT DEMO MODAL */
+  .modal-ov{position:fixed;inset:0;background:rgba(2,12,5,.96);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px)}
+  .modal-ov.active{opacity:1;pointer-events:all}
+  .modal-box{background:var(--panel);border:1px solid var(--green);max-width:860px;width:95%;max-height:90vh;overflow-y:auto;position:relative;animation:min .3s ease}
+  @keyframes min{from{transform:translateY(30px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+  .mhdr{background:#0a1f10;border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1}
+  .mtitle{font-family:var(--display);font-size:13px;font-weight:700;color:var(--green);letter-spacing:2px}
+  .mclose{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:var(--mono);font-size:14px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .mclose:hover{border-color:var(--red);color:var(--red)}
+  .mbody{padding:32px}
+  .mst{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;border-left:3px solid var(--green);padding-left:12px}
+  .how-steps{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+  .hs{display:flex;gap:20px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);padding:18px;transition:border-color .2s}
+  .hs:hover{border-color:var(--green2)}
+  .hsn{font-family:var(--display);font-size:28px;font-weight:900;color:var(--green);opacity:.4;line-height:1;flex-shrink:0;width:40px}
+  .hsc h4{font-family:var(--display);font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;margin-bottom:6px}
+  .hsc p{font-size:14px;line-height:1.6;color:var(--text-dim);font-weight:300}
+  .dscreen{background:var(--bg);border:1px solid var(--border);margin-bottom:24px;overflow:hidden}
+  .dsbar{background:#0a1f10;padding:8px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border)}
+  .dsbar .tdot{width:8px;height:8px}
+  .dsurl{font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-left:10px}
+  .dscontent{min-height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .ph{width:100%;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:repeating-linear-gradient(45deg,var(--bg),var(--bg) 10px,var(--panel) 10px,var(--panel) 20px)}
+  .phi{font-size:48px;opacity:.35}
+  .pht{font-family:var(--mono);font-size:12px;color:var(--text-dim);text-align:center;line-height:1.9}
+  .phs{font-family:var(--mono);font-size:10px;color:var(--amber);opacity:.8;text-align:center}
+  .demo-img{width:100%;display:block;object-fit:cover}
+  .video-embed{width:100%;aspect-ratio:16/9;border:none}
+  .dlinks{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+  /* ACHIEVEMENTS */
+  #achievements{padding:120px 80px;background:linear-gradient(180deg,transparent,var(--bg2),transparent)}
+  .aw{max-width:1200px;margin:0 auto}
+  .achg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .achc{background:var(--panel);border:1px solid var(--border);padding:28px;display:flex;flex-direction:column;gap:12px;transition:all .3s}
+  .achc:hover{border-color:var(--green2)}
+  .achi{font-size:28px;line-height:1}
+  .acht{font-family:var(--display);font-size:15px;font-weight:700;color:#fff;line-height:1.3}
+  .achd{font-size:13px;line-height:1.6;color:var(--text-dim);font-weight:300;flex:1}
+  .achdt{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:1px}
+  /* CERTIFICATIONS */
+  #certs{padding:80px;max-width:1200px;margin:0 auto}
+  .certg{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .cert-card{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--green);overflow:hidden;transition:all .3s;cursor:pointer}
+  .cert-card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,255,65,.08)}
+  .cct{padding:20px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .ci{flex:1}.cn{font-family:var(--body);font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+  .ciss{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:1px}
+  .cr{text-align:right;flex-shrink:0}
+  .cdate{font-family:var(--mono);font-size:11px;color:var(--green);white-space:nowrap}
+  .cvb{font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:1px;margin-top:8px;display:flex;align-items:center;gap:4px;justify-content:flex-end}
+  .cvb span{animation:blink 1.5s step-end infinite}
+  .cpanel{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .cpanel.open{max-height:500px;border-top:1px solid var(--border)}
+  .cpinner{padding:20px 24px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+  .cshot{flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border);min-height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;cursor:pointer;transition:border-color .2s;overflow:hidden}
+  .cshot:hover{border-color:var(--green)}
+  .cshot img{width:100%;display:block;object-fit:cover}
+  .cshot .noimg{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:center;padding:20px;line-height:1.8}
+  .cshot .noimg strong{color:var(--green);display:block;font-size:24px;margin-bottom:8px}
+  .cmeta{flex:1;min-width:200px}
+  .cmeta p{font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:12px;font-weight:300}
+  .cmeta a{font-family:var(--mono);font-size:12px;color:var(--amber);text-decoration:none;display:flex;align-items:center;gap:6px}
+  .cmeta a:hover{color:var(--green)}
+  /* Cert fullscreen */
+  .cimgmod{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:3000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+  .cimgmod.active{opacity:1;pointer-events:all}
+  .cimgmod img{max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid var(--green);box-shadow:0 0 60px rgba(0,255,65,.2)}
+  .cimgclose{position:absolute;top:20px;right:24px;background:none;border:1px solid var(--border);color:var(--text-dim);font-family:var(--mono);font-size:16px;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .cimgclose:hover{border-color:var(--red);color:var(--red)}
+  /* CONTACT */
+  #contact{padding:120px 80px;text-align:center}
+  .contactw{max-width:700px;margin:0 auto}
+  .cintro{font-size:17px;line-height:1.7;color:var(--text);opacity:.7;margin-bottom:48px;font-weight:300}
+  .cong{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+  .conc{background:var(--panel);border:1px solid var(--border);padding:24px 16px;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:12px;transition:all .3s}
+  .conc:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,255,65,.08)}
+  .coni{font-size:24px}.conl{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase}
+  .conv{font-family:var(--body);font-size:13px;color:var(--text);word-break:break-all;font-weight:400}
+  footer{border-top:1px solid var(--border);padding:32px 80px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+  .ft{font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:1px}
+  .ft .g{color:var(--green)}
+  .fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .fade-up.visible{opacity:1;transform:translateY(0)}
+  .glitch{position:relative}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;color:#fff}
+  .glitch::before{animation:g1 3s infinite;color:#00ff41;clip-path:polygon(0 0,100% 0,100% 35%,0 35%)}
+  .glitch::after{animation:g2 3s infinite;color:#ff2a2a;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%)}
+  @keyframes g1{0%,90%,100%{transform:translate(0)}92%{transform:translate(-2px,1px)}94%{transform:translate(2px,-1px)}}
+  @keyframes g2{0%,90%,100%{transform:translate(0)}91%{transform:translate(2px,1px)}93%{transform:translate(-2px,-1px)}}
+  .hdeco{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:400px;height:400px;border:1px solid var(--border);border-radius:50%;opacity:.3;animation:rslow 20s linear infinite}
+  .hdeco::before{content:'';position:absolute;inset:20px;border:1px solid var(--border);border-radius:50%;animation:rslow 15s linear infinite reverse}
+  @keyframes rslow{from{transform:translateY(-50%) rotate(0)}to{transform:translateY(-50%) rotate(360deg)}}
+  @media(max-width:900px){
+    nav{padding:16px 24px}.nav-links{display:none}
+    #hero{padding:100px 24px 60px}.hero-grid{grid-template-columns:1fr}
+    #about,#skills,#projects,#achievements,#certs,#contact{padding:80px 24px}
+    .ag,.pg{grid-template-columns:1fr}.pc.feat{grid-column:span 1;grid-template-columns:1fr}
+    .skg,.achg,.cong,.certg{grid-template-columns:1fr}
+    footer{padding:24px;flex-direction:column;gap:12px;text-align:center}
+    .sg{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cdot"></div>
+<canvas id="mc"></canvas>
+
+<nav>
+  <div class="nav-logo">GY<span>::</span>SEC</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li><li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li><li><a href="#achievements">achievements</a></li>
+    <li><a href="#certs">certs</a></li><li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hdeco"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">CYBERSECURITY PORTFOLIO</div>
+      <h1 class="hero-name glitch" data-text="Gaurav">Gaurav</h1>
+      <h1 class="hero-name" style="color:var(--green)">Yadav.</h1>
+      <p class="hero-title">AI Security · Threat Detection · Penetration Testing</p>
+      <p class="hero-desc">CSE student at LPU specializing in <strong style="color:var(--green)">AI-powered cybersecurity tools</strong>. Building real-world threat detection systems and diving deep into ethical hacking, network security, and malware analysis.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+      <div class="status-row">
+        <div class="status-badge"><span class="dot"></span>Available for Internships</div>
+        <div class="status-badge">📍 LPU, Punjab</div>
+      </div>
+    </div>
+    <div class="terminal fade-up">
+      <div class="tbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><div class="ttitle">gaurav@kali:~</div></div>
+      <div class="tbody">
+        <div class="tl"><span class="tp">$</span><span class="tc">whoami</span></div>
+        <div class="to"><span class="v">gaurav_yadav</span> — cybersec student</div><br>
+        <div class="tl"><span class="tp">$</span><span class="tc">cat focus.txt</span></div>
+        <div class="to"><span class="s">"AI Threat Detection &amp; Ethical Hacking"</span></div><br>
+        <div class="tl"><span class="tp">$</span><span class="tc">ls projects/</span></div>
+        <div class="to"><span class="v">ThreatScan-Pro</span>  <span class="v">SysMonitor</span>  <span class="v">PacketAnalyzer</span></div><br>
+        <div class="tl"><span class="tp">$</span><span class="tc">status --open-to-work<span class="tcursor"></span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sh fade-up"><div class="se">// 01. about_me</div><h2 class="st">Who I Am</h2><div class="sl"></div></div>
+  <div class="ag">
+    <div class="at fade-up">
+      <p>I'm a <strong>B.Tech CSE student at Lovely Professional University</strong>, focused on the intersection of <strong>artificial intelligence and cybersecurity</strong>. My passion lies in building tools that actively defend systems against real-world threats.</p>
+      <p>My flagship project, <strong>ThreatScan Pro</strong>, is an AI-powered phishing detection platform achieving <strong>90% accuracy</strong> using XGBoost ensemble learning — backed by VirusTotal and Google Safe Browsing APIs.</p>
+      <p>Beyond building, I actively practice on <strong>TryHackMe</strong> (20+ rooms) covering reconnaissance, privilege escalation, and web exploitation — because the best defenders think like attackers.</p>
+    </div>
+    <div class="sg fade-up">
+      <div class="sc"><div class="sn">20+</div><div class="slb">TryHackMe Rooms</div></div>
+      <div class="sc"><div class="sn">90%</div><div class="slb">AI Model Accuracy</div></div>
+      <div class="sc"><div class="sn">12+</div><div class="slb">Detection Features</div></div>
+      <div class="sc"><div class="sn">8+</div><div class="slb">File Formats Analyzed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sw">
+    <div class="sh fade-up"><div class="se">// 02. skill_set</div><h2 class="st">Arsenal</h2><div class="sl"></div></div>
+    <div class="skg fade-up">
+      <div class="skc"><div class="skct">⚔ Security Tools</div><div class="skt"><span class="sktg">Nmap</span><span class="sktg">Wireshark</span><span class="sktg">Burp Suite</span><span class="sktg">Kali Linux</span><span class="sktg">VMware</span><span class="sktg">Bash</span></div></div>
+      <div class="skc"><div class="skct">⚙ Languages</div><div class="skt"><span class="sktg">Python</span><span class="sktg">C++</span><span class="sktg">C</span><span class="sktg">Java</span><span class="sktg">Bash Script</span></div></div>
+      <div class="skc"><div class="skct">🤖 AI / ML</div><div class="skt"><span class="sktg">XGBoost</span><span class="sktg">Scikit-learn</span><span class="sktg">Feature Engineering</span><span class="sktg">Threat Intel</span></div></div>
+      <div class="skc"><div class="skct">🛠 Frameworks</div><div class="skt"><span class="sktg">Tkinter</span><span class="sktg">Psutil</span><span class="sktg">Matplotlib</span><span class="sktg">NIST</span><span class="sktg">VirusTotal API</span></div></div>
+      <div class="skc"><div class="skct">🌐 Networking</div><div class="skt"><span class="sktg">TCP/IP</span><span class="sktg">DNS Analysis</span><span class="sktg">Packet Analysis</span><span class="sktg">OSINT</span><span class="sktg">Recon</span></div></div>
+      <div class="skc"><div class="skct">💡 Soft Skills</div><div class="skt"><span class="sktg">Collaboration</span><span class="sktg">Planning</span><span class="sktg">Adaptability</span><span class="sktg">Documentation</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sh fade-up"><div class="se">// 03. projects</div><h2 class="st">Built By Me</h2><div class="sl"></div></div>
+  <div class="pg">
+
+    <!-- ThreatScan Pro FEATURED -->
+    <div class="pc feat fade-up">
+      <div>
+        <div class="pid">PROJECT_001 · FEATURED ⭐</div>
+        <div class="pname">ThreatScan Pro</div>
+        <div class="psub">AI-POWERED THREAT DEFENSE PLATFORM</div>
+        <div class="pmets">
+          <div class="met"><div class="metv">90%</div><div class="metk">Accuracy</div></div>
+          <div class="met"><div class="metv">12+</div><div class="metk">Features</div></div>
+          <div class="met"><div class="metv">8+</div><div class="metk">File Types</div></div>
+        </div>
+        <div class="ptech"><span class="ptag">XGBoost</span><span class="ptag">Python</span><span class="ptag">VirusTotal API</span><span class="ptag">Chrome Extension</span><span class="ptag">NLP</span><span class="ptag">Gmail API</span></div>
+        <div class="pacts">
+          <a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub</a>
+          <!-- 🔁 Replace with your actual demo link when deployed -->
+          <a href="#" class="btn btn-sm btn-ghost">🌐 Live Demo</a>
+          <button class="btn btn-sm btn-amber" onclick="openM('ts')">▶ How It Works</button>
+        </div>
+      </div>
+      <div>
+        <ul class="pfeats">
+          <li>AI phishing detection via XGBoost ensemble + multi-source threat intel (VirusTotal, Google Safe Browsing)</li>
+          <li>12+ signals: sender spoofing, urgency keywords, URL pattern matching, domain reputation scoring</li>
+          <li>Malware analysis pipeline for EML, MSG, PDF, DOCX — VBA macro & embedded JS detection</li>
+          <li>Chrome extension with real-time Gmail scanning, visual threat indicators, one-click detection</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- System Monitor -->
+    <div class="pc fade-up">
+      <div class="pid">PROJECT_002</div>
+      <div class="pname">Graphical System Monitor</div>
+      <div class="psub">REAL-TIME PERFORMANCE DASHBOARD</div>
+      <p class="pdesc">Real-time dashboard tracking CPU, memory, active processes with multi-threaded data fetching, live Matplotlib graphs, and process kill-by-PID functionality.</p>
+      <div class="ptech"><span class="ptag">Python</span><span class="ptag">Tkinter</span><span class="ptag">Psutil</span><span class="ptag">Matplotlib</span><span class="ptag">Threading</span></div>
+      <div class="pacts">
+        <a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub</a>
+        <button class="btn btn-sm btn-amber" onclick="openM('sm')">▶ How It Works</button>
+      </div>
+    </div>
+
+    <!-- Packet Analyzer -->
+    <div class="pc fade-up">
+      <div class="pid">PROJECT_003 · SIH 2024</div>
+      <div class="pname">Network Packet Analyzer</div>
+      <div class="psub">HACKATHON BUILD</div>
+      <p class="pdesc">Built during Smart India Hackathon 2024 — captures, dissects, and presents network traffic data for security analysis and anomaly detection across TCP, UDP, ICMP, DNS.</p>
+      <div class="ptech"><span class="ptag">Python</span><span class="ptag">Scapy</span><span class="ptag">Wireshark</span><span class="ptag">Networking</span></div>
+      <div class="pacts">
+        <a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub</a>
+        <button class="btn btn-sm btn-amber" onclick="openM('pa')">▶ How It Works</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= PROJECT MODALS ======= -->
+
+<!-- ThreatScan Modal -->
+<div class="modal-ov" id="m-ts">
+  <div class="modal-box">
+    <div class="mhdr"><div class="mtitle">THREATSCAN PRO — HOW IT WORKS</div><button class="mclose" onclick="closeM('ts')">✕</button></div>
+    <div class="mbody">
+      <p class="mst">LIVE DEMO / SCREENSHOT</p>
+      <div class="dscreen">
+        <div class="dsbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div>
+          <!-- 🔁 Replace text below with your actual deployed URL -->
+          <span class="dsurl">https://your-threatscan-demo.vercel.app</span>
+        </div>
+        <div class="dscontent">
+          <!-- ============================================================
+               HOW TO ADD YOUR SCREENSHOT OR VIDEO:
+               
+               OPTION A — Screenshot image:
+               1. Take a screenshot of your running project
+               2. Save it as "screenshots/threatscan.png" in the same folder
+               3. Uncomment the line below:
+               <img class="demo-img" src="screenshots/threatscan.png" alt="ThreatScan Pro">
+               
+               OPTION B — YouTube demo video:
+               1. Upload a demo video to YouTube
+               2. Replace VIDEO_ID with your video's ID
+               3. Uncomment the line below:
+               <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+          ============================================================ -->
+          <div class="ph">
+            <div class="phi">🖥</div>
+            <div class="pht">📸 Add your project screenshot here<br><span style="color:var(--green);font-size:10px">Save screenshot → "screenshots/threatscan.png" → uncomment &lt;img&gt; tag above</span></div>
+            <div class="phs">OR embed a YouTube demo video using the &lt;iframe&gt; above</div>
+          </div>
+        </div>
+      </div>
+      <p class="mst">HOW IT WORKS — STEP BY STEP</p>
+      <div class="how-steps">
+        <div class="hs"><div class="hsn">01</div><div class="hsc"><h4>INPUT: Email / File / URL</h4><p>User submits a suspicious email, file (EML, MSG, PDF, DOCX, XLSX), or URL through the web interface or Chrome extension inside Gmail.</p></div></div>
+        <div class="hs"><div class="hsn">02</div><div class="hsc"><h4>FEATURE EXTRACTION ENGINE</h4><p>12+ signals extracted: sender domain reputation, urgency keywords, link redirect chains, metadata anomalies, embedded script detection, DKIM/SPF verification.</p></div></div>
+        <div class="hs"><div class="hsn">03</div><div class="hsc"><h4>MULTI-SOURCE THREAT INTELLIGENCE</h4><p>URLs and file hashes cross-referenced in real-time against VirusTotal (70+ AV engines) and Google Safe Browsing databases.</p></div></div>
+        <div class="hs"><div class="hsn">04</div><div class="hsc"><h4>XGBOOST AI CLASSIFICATION</h4><p>All features feed into a trained XGBoost ensemble model that outputs a threat classification with confidence score — achieving 90% accuracy on held-out test sets.</p></div></div>
+        <div class="hs"><div class="hsn">05</div><div class="hsc"><h4>VERDICT + CHROME ALERT</h4><p>Chrome extension displays 🟢 Safe / 🟡 Suspicious / 🔴 Phishing verdict with a breakdown of which signals triggered the alert — right inside Gmail.</p></div></div>
+      </div>
+      <div class="dlinks">
+        <a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub Repo</a>
+        <a href="#" class="btn btn-sm btn-ghost">🌐 Live Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- System Monitor Modal -->
+<div class="modal-ov" id="m-sm">
+  <div class="modal-box">
+    <div class="mhdr"><div class="mtitle">SYSTEM MONITOR — HOW IT WORKS</div><button class="mclose" onclick="closeM('sm')">✕</button></div>
+    <div class="mbody">
+      <p class="mst">DEMO / SCREENSHOT</p>
+      <div class="dscreen">
+        <div class="dsbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><span class="dsurl">python system_monitor.py</span></div>
+        <div class="dscontent">
+          <!-- 🔁 Add screenshot: <img class="demo-img" src="screenshots/sysmonitor.png" alt="System Monitor"> -->
+          <div class="ph"><div class="phi">📊</div><div class="pht">📸 Add your app screenshot here<br><span style="color:var(--green);font-size:10px">Save as "screenshots/sysmonitor.png" and uncomment &lt;img&gt;</span></div></div>
+        </div>
+      </div>
+      <p class="mst">HOW IT WORKS — STEP BY STEP</p>
+      <div class="how-steps">
+        <div class="hs"><div class="hsn">01</div><div class="hsc"><h4>MULTI-THREADED POLLING</h4><p>Background threads continuously poll CPU%, memory, disk I/O and active process list using psutil — without ever blocking the UI thread for a lag-free experience.</p></div></div>
+        <div class="hs"><div class="hsn">02</div><div class="hsc"><h4>LIVE MATPLOTLIB GRAPHS</h4><p>Data streams in real-time into embedded Matplotlib charts inside Tkinter, with configurable refresh intervals and smooth animated curve rendering.</p></div></div>
+        <div class="hs"><div class="hsn">03</div><div class="hsc"><h4>PROCESS INSPECTOR + KILL BY PID</h4><p>Browse all running processes, inspect resource usage, and terminate any process by PID directly from the GUI — full system control without a terminal.</p></div></div>
+      </div>
+      <div class="dlinks"><a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub Repo</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Packet Analyzer Modal -->
+<div class="modal-ov" id="m-pa">
+  <div class="modal-box">
+    <div class="mhdr"><div class="mtitle">NETWORK PACKET ANALYZER — HOW IT WORKS</div><button class="mclose" onclick="closeM('pa')">✕</button></div>
+    <div class="mbody">
+      <p class="mst">DEMO / SCREENSHOT</p>
+      <div class="dscreen">
+        <div class="dsbar"><div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div><span class="dsurl">sudo python packet_analyzer.py --interface eth0</span></div>
+        <div class="dscontent">
+          <!-- 🔁 Add screenshot: <img class="demo-img" src="screenshots/packetanalyzer.png" alt="Packet Analyzer"> -->
+          <div class="ph"><div class="phi">📡</div><div class="pht">📸 Add your app screenshot here<br><span style="color:var(--green);font-size:10px">Save as "screenshots/packetanalyzer.png" and uncomment &lt;img&gt;</span></div></div>
+        </div>
+      </div>
+      <p class="mst">HOW IT WORKS — STEP BY STEP</p>
+      <div class="how-steps">
+        <div class="hs"><div class="hsn">01</div><div class="hsc"><h4>PACKET CAPTURE</h4><p>Uses Scapy to capture raw network packets on a selected interface in real-time — supporting TCP, UDP, ICMP, ARP, and DNS traffic types.</p></div></div>
+        <div class="hs"><div class="hsn">02</div><div class="hsc"><h4>LAYER-BY-LAYER DISSECTION</h4><p>Each packet is parsed Ethernet → IP → Transport → Application, extracting source/dest IPs, ports, protocol flags, TTL values, and payload summaries.</p></div></div>
+        <div class="hs"><div class="hsn">03</div><div class="hsc"><h4>ANOMALY DETECTION</h4><p>Flags suspicious patterns: SYN floods, ARP spoofing attempts, rapid port scanning, and abnormal data volumes — displayed with timestamp and severity level.</p></div></div>
+      </div>
+      <div class="dlinks"><a href="https://github.com/Gaurav4149" target="_blank" class="btn btn-sm">⤴ GitHub Repo</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="aw">
+    <div class="sh fade-up"><div class="se">// 04. achievements</div><h2 class="st">Milestones</h2><div class="sl"></div></div>
+    <div class="achg fade-up">
+      <div class="achc"><div class="achi">🏆</div><div class="acht">Smart India Hackathon 2024</div><div class="achd">Built a network packet analyzer from scratch in a high-pressure competitive environment.</div><div class="achdt">JAN '25</div></div>
+      <div class="achc"><div class="achi">🎯</div><div class="acht">TryHackMe — 20+ Rooms</div><div class="achd">Completed 20+ rooms covering recon, privilege escalation, malware analysis, and web exploitation.</div><div class="achdt">ONGOING</div></div>
+      <div class="achc"><div class="achi">🔒</div><div class="acht">Ethical Hacking Workshop</div><div class="achd">Hands-on workshop covering reconnaissance, network scanning, and basic exploitation techniques.</div><div class="achdt">MAR '25</div></div>
+      <div class="achc"><div class="achi">☁️</div><div class="acht">Cloud & Virtualization Workshop</div><div class="achd">Explored cloud services, VMs, and modern IT infrastructure for scalable security solutions.</div><div class="achdt">AUG '25</div></div>
+      <div class="achc"><div class="achi">🤖</div><div class="acht">ThreatScan Pro — AI Research</div><div class="achd">Built a production-grade AI security system with 90% phishing detection accuracy.</div><div class="achdt">JAN '26</div></div>
+      <div class="achc"><div class="achi">📡</div><div class="acht">DSA Training — Cipher Institute</div><div class="achd">Structured DSA training in C++ — algorithms, time/space complexity, real problem solving.</div><div class="achdt">JUL '25</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div style="max-width:1200px;margin:0 auto;padding:0 0 120px">
+    <div class="sh fade-up"><div class="se">// 05. certifications</div><h2 class="st">Verified Learning</h2><div class="sl"></div></div>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--amber);text-align:center;margin-bottom:32px;letter-spacing:2px">▼ CLICK ANY CARD TO VIEW YOUR CERTIFICATE</p>
+    <div class="certg fade-up">
+
+      <!-- CERT 1 -->
+      <div class="cert-card" onclick="toggleC('c1')">
+        <div class="cct"><div class="ci"><div class="cn">Social Networks</div><div class="ciss">NPTEL — IIT</div></div>
+        <div class="cr"><div class="cdate">NOV '25</div><div class="cvb">VIEW CERT <span>▼</span></div></div></div>
+        <div class="cpanel" id="c1"><div class="cpinner">
+          <div class="cshot" id="cshot1" onclick="openImg(event,'csrc1')">
+            <!-- 🔁 STEP 1: Save your certificate screenshot
+                 STEP 2: Add path below and uncomment:
+            <img id="csrc1" src="certs/nptel_social_networks.jpg" alt="NPTEL Certificate"> -->
+            <div class="noimg"><strong>📜</strong>Click to add your certificate image<br><span style="color:var(--amber);font-size:10px">Uncomment &lt;img&gt; tag and add your file</span></div>
+          </div>
+          <div class="cmeta">
+            <p>NPTEL course on Social Networks — covering graph theory, network analysis, community detection, and information diffusion. Relevant to OSINT and threat intelligence mapping.</p>
+            <!-- 🔁 Replace with your actual certificate URL from NPTEL -->
+            <a href="YOUR_NPTEL_CERT_LINK" target="_blank">🔗 View Certificate Online</a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CERT 2 -->
+      <div class="cert-card" onclick="toggleC('c2')">
+        <div class="cct"><div class="ci"><div class="cn">Introduction to Hardware & Operating Systems</div><div class="ciss">Coursera · IBM</div></div>
+        <div class="cr"><div class="cdate">SEP '25</div><div class="cvb">VIEW CERT <span>▼</span></div></div></div>
+        <div class="cpanel" id="c2"><div class="cpinner">
+          <div class="cshot" onclick="openImg(event,'csrc2')">
+            <!-- <img id="csrc2" src="certs/ibm_hardware_os.jpg" alt="IBM Hardware & OS"> -->
+            <div class="noimg"><strong>📜</strong>Add your Coursera certificate screenshot<br><span style="color:var(--amber);font-size:10px">Coursera → Certificate → Share → Screenshot</span></div>
+          </div>
+          <div class="cmeta">
+            <p>IBM-backed course covering computer hardware fundamentals, OS concepts, file systems, and processes — essential background for understanding system-level vulnerabilities.</p>
+            <a href="YOUR_COURSERA_LINK" target="_blank">🔗 View on Coursera</a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CERT 3 -->
+      <div class="cert-card" onclick="toggleC('c3')">
+        <div class="cct"><div class="ci"><div class="cn">The Bits and Bytes of Computer Networking</div><div class="ciss">Coursera · Google</div></div>
+        <div class="cr"><div class="cdate">NOV '24</div><div class="cvb">VIEW CERT <span>▼</span></div></div></div>
+        <div class="cpanel" id="c3"><div class="cpinner">
+          <div class="cshot" onclick="openImg(event,'csrc3')">
+            <!-- <img id="csrc3" src="certs/google_networking.jpg" alt="Google Networking"> -->
+            <div class="noimg"><strong>📜</strong>Add your Google certificate screenshot<br><span style="color:var(--amber);font-size:10px">Coursera → Certificate → Share → Screenshot</span></div>
+          </div>
+          <div class="cmeta">
+            <p>Google's networking course — TCP/IP, DNS, routing, VPNs, and network troubleshooting. Core foundation for all my network security and packet analysis work.</p>
+            <a href="YOUR_COURSERA_LINK" target="_blank">🔗 View on Coursera</a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CERT 4 -->
+      <div class="cert-card" onclick="toggleC('c4')">
+        <div class="cct"><div class="ci"><div class="cn">Fundamentals of Network Communication</div><div class="ciss">Coursera · University of Colorado</div></div>
+        <div class="cr"><div class="cdate">SEP '24</div><div class="cvb">VIEW CERT <span>▼</span></div></div></div>
+        <div class="cpanel" id="c4"><div class="cpinner">
+          <div class="cshot" onclick="openImg(event,'csrc4')">
+            <!-- <img id="csrc4" src="certs/network_comm.jpg" alt="Network Communication"> -->
+            <div class="noimg"><strong>📜</strong>Add your certificate screenshot<br><span style="color:var(--amber);font-size:10px">Uncomment &lt;img&gt; and set file path</span></div>
+          </div>
+          <div class="cmeta">
+            <p>Deep dive into protocol design, data encoding, error correction, and multiplexing — the theoretical foundation behind secure data transmission.</p>
+            <a href="YOUR_COURSERA_LINK" target="_blank">🔗 View on Coursera</a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CERT 5 -->
+      <div class="cert-card" onclick="toggleC('c5')">
+        <div class="cct"><div class="ci"><div class="cn">Data Structures & Algorithms — C++</div><div class="ciss">Cipher Institute</div></div>
+        <div class="cr"><div class="cdate">JUL '25</div><div class="cvb">VIEW CERT <span>▼</span></div></div></div>
+        <div class="cpanel" id="c5"><div class="cpinner">
+          <div class="cshot" onclick="openImg(event,'csrc5')">
+            <!-- <img id="csrc5" src="certs/cipher_dsa.jpg" alt="DSA Certificate"> -->
+            <div class="noimg"><strong>📜</strong>Add your DSA certificate screenshot<br><span style="color:var(--amber);font-size:10px">Uncomment &lt;img&gt; and set file path</span></div>
+          </div>
+          <div class="cmeta">
+            <p>Structured DSA training in C++ — arrays, linked lists, stacks, queues, trees, graphs, sorting and searching. Directly improves algorithmic thinking for security tool development.</p>
+            <a href="YOUR_CERT_LINK" target="_blank">🔗 View Certificate</a>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CERT 6: TryHackMe -->
+      <div class="cert-card" onclick="toggleC('c6')">
+        <div class="cct"><div class="ci"><div class="cn">TryHackMe — 20+ Rooms Completed</div><div class="ciss">TryHackMe Platform</div></div>
+        <div class="cr"><div class="cdate">ONGOING</div><div class="cvb">VIEW PROFILE <span>▼</span></div></div></div>
+        <div class="cpanel" id="c6"><div class="cpinner">
+          <div class="cshot" onclick="openImg(event,'csrc6')">
+            <!-- <img id="csrc6" src="certs/tryhackme_profile.jpg" alt="TryHackMe Profile"> -->
+            <div class="noimg"><strong>🎯</strong>Add your TryHackMe profile screenshot<br><span style="color:var(--amber);font-size:10px">Go to tryhackme.com/p/YOUR_USERNAME → Screenshot</span></div>
+          </div>
+          <div class="cmeta">
+            <p>20+ hands-on rooms completed on TryHackMe — reconnaissance, privilege escalation, malware analysis fundamentals, CTF challenges, and web application exploitation.</p>
+            <!-- 🔁 Replace with YOUR TryHackMe username -->
+            <a href="https://tryhackme.com/p/YOUR_USERNAME" target="_blank">🔗 View TryHackMe Profile</a>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Cert fullscreen image viewer -->
+<div class="cimgmod" id="cimgmod" onclick="closeImg()">
+  <button class="cimgclose" onclick="closeImg()">✕</button>
+  <img id="cimgmod-img" src="" alt="Certificate">
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contactw">
+    <div class="sh fade-up"><div class="se">// 06. contact</div><h2 class="st">Let's Connect</h2><div class="sl"></div></div>
+    <p class="cintro fade-up">Open to internships, collaborations, CTF teams, and security research projects. If you're building something in the cybersecurity space — let's talk.</p>
+    <div class="cong fade-up">
+      <a href="mailto:gauravyadavv337@gmail.com" class="conc"><div class="coni">✉</div><div class="conl">Email</div><div class="conv">gauravyadavv337@gmail.com</div></a>
+      <a href="https://www.linkedin.com/in/gauravyadav20/" target="_blank" class="conc"><div class="coni">💼</div><div class="conl">LinkedIn</div><div class="conv">gauravyadav20</div></a>
+      <a href="https://github.com/Gaurav4149" target="_blank" class="conc"><div class="coni">⌨</div><div class="conl">GitHub</div><div class="conv">Gaurav4149</div></a>
+    </div>
+    <a href="tel:+918957620379" class="btn">📱 +91 89576 20379</a>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">© 2026 <span class="g">Gaurav Yadav</span> — Cybersecurity Portfolio</div>
+  <div class="ft">Deploy free on <span class="g">GitHub Pages</span></div>
+</footer>
+
+<script>
+  // Cursor
+  const cur=document.getElementById('cursor'),cdot=document.getElementById('cdot');
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX-8+'px';cur.style.top=e.clientY-8+'px';
+    cdot.style.left=e.clientX-2+'px';cdot.style.top=e.clientY-2+'px';
+  });
+  document.querySelectorAll('a,button,.sktg,.pc,.cert-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.style.transform='scale(2)');
+    el.addEventListener('mouseleave',()=>cur.style.transform='scale(1)');
+  });
+
+  // Matrix
+  const cv=document.getElementById('mc'),ctx=cv.getContext('2d');
+  cv.width=window.innerWidth;cv.height=window.innerHeight;
+  window.addEventListener('resize',()=>{cv.width=window.innerWidth;cv.height=window.innerHeight;});
+  const ch='01アイウエABCDEF#$@!';
+  const fs=14;let dr=Array(Math.floor(window.innerWidth/fs)).fill(1);
+  setInterval(()=>{
+    ctx.fillStyle='rgba(2,12,5,.04)';ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.fillStyle='#00ff41';ctx.font=fs+'px Share Tech Mono';
+    for(let i=0;i<dr.length;i++){
+      const t=ch[Math.floor(Math.random()*ch.length)];
+      ctx.fillText(t,i*fs,dr[i]*fs);
+      if(dr[i]*fs>cv.height&&Math.random()>.975)dr[i]=0;
+      dr[i]++;
+    }
+  },50);
+
+  // Fade up
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);});
+  },{threshold:.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  // Project modals
+  function openM(id){document.getElementById('m-'+id).classList.add('active');document.body.style.overflow='hidden';}
+  function closeM(id){document.getElementById('m-'+id).classList.remove('active');document.body.style.overflow='';}
+  document.querySelectorAll('.modal-ov').forEach(m=>{
+    m.addEventListener('click',e=>{if(e.target===m){m.classList.remove('active');document.body.style.overflow='';}});
+  });
+
+  // Cert accordion
+  function toggleC(id){document.getElementById(id).classList.toggle('open');}
+
+  // Cert image fullscreen
+  function openImg(e,srcId){
+    e.stopPropagation();
+    const img=document.getElementById(srcId);
+    if(!img||!img.src||img.src.endsWith('undefined'))return;
+    document.getElementById('cimgmod-img').src=img.src;
+    document.getElementById('cimgmod').classList.add('active');
+  }
+  function closeImg(){document.getElementById('cimgmod').classList.remove('active');}
+
+  // ESC key
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      document.querySelectorAll('.modal-ov.active,.cimgmod.active').forEach(m=>m.classList.remove('active'));
+      document.body.style.overflow='';
+    }
+  });
+</script>
+</body>
+</html>
